@@ -1,8 +1,8 @@
-const API_KEY = "6e753d412728f776ff6e03a127b09896";
+import { findMovie, findActor, getBestOatMovies, getPopularMovies } from "./api.js";
+
 // variabler där datan sparas. Så jag bara hämtar det en gång
 let top10OatResults = null;
 let top10NowResults = null;
-let movieresponse = null;
 
 const POSTER_BASE_PATH = "https://media.themoviedb.org/t/p/w440_and_h660_face";
 
@@ -54,8 +54,8 @@ const fetchTop10Oat = async () => {
   if (!top10OatResults) {
     // försök att hämta datan
     try {
-      const url = `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}`;
-      top10OatResults = await axios.get(url);
+      
+      top10OatResults = await getBestOatMovies();
     } catch (error) {
       // skriv ut felet i console
       console.log("error", error);
@@ -94,8 +94,7 @@ const fetchTop10Now = async () => {
   if (!top10NowResults) {
     // försök att hämta datan
     try {
-      const url = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`;
-      top10NowResults = await axios.get(url);
+      top10NowResults = await getPopularMovies();
     } catch (error) {
       // skriv ut felet i console
       console.log("error", error);
@@ -139,13 +138,11 @@ async function actorSearch(event) {
   const actorStr = document.querySelector("input").value;
   // tömmer texten
   event.target.reset();
-  // bygger upp urlen
-  const url = `https://api.themoviedb.org/3/search/person?api_key=${API_KEY}&query=${actorStr}&include_adult=false&language=en-US&page=1`;
-
+  
   let personResponse = null;
   // loggar felet i consolen
   try {
-    personResponse = await axios.get(url);
+    personResponse = await findActor(actorStr);
   } catch (error) {
     console.log("error", error);
     // skriver upp felet på sidan
@@ -237,12 +234,11 @@ async function movieSearch(event) {
 
   const movieStr = document.querySelector("#movie_name").value;
   event.target.reset();
-
-  const url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${movieStr}&language=en-US&page=1`;
+  
 
   let movieResponse;
   try {
-    movieResponse = await axios.get(url);
+    movieResponse = await findMovie(movieStr);
   } catch (error) {
     const serverError = document.createElement("p");
     serverError.textContent = "Server error";
@@ -250,7 +246,6 @@ async function movieSearch(event) {
     return;
   }
 
-  console.log("movieResponse", movieResponse);
   const movies = movieResponse?.data?.results;
 
   movies.forEach((movie) => {
