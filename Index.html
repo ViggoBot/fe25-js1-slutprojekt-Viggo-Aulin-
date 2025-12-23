@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Project</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/script.js"></script>
+  </head>
+  <body>
+    <header class="header">
+      <button class="button" id="top10NowBtn">top 10 movie rn</button>
+      <button class="button" id="top10OatBtn">top 10 movie oat</button>
+      <form class="actorform">
+        <input id="actor_name"/>
+        <button id="searchbtn">Actor Search</button>
+      </form>
+      <form class="movieform">
+        <input id="movie_name"/>
+        <button id="searchbtn">Movie Search</button>
+      </form>
+    </header>
+    <div class="pageContent">
+      <div class="page" id="top10Page">
+        <div class="gallery"></div>
+      </div>
+      <div class="page" id="searchActorPage">
+        <div class="result">
+          <div class="actorWrap">
+          <div id="actorContainer" class="actor">
+          </div>
+</div>
+          
+          </div>
+        </div>
+        
+        <div class="page" id="searchMoviePage">
+        <div class="result">
+          <div class="movieWrap">
+          <div id="searchMovieContainer" class="movie">
+          </div>
+</div>
+          
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </body>
+</html>

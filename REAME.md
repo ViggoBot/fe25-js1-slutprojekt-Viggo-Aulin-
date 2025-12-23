@@ -1,0 +1,3 @@
+Detta är mitt project för JAVASCRIPT 1 i skolan då jag har gjort en hemsida som har att man kan söka efter actor namn och bild på actorn. Även 3 filmer/tv serier som de har gjort. 
+äver två knappar som byter emellan top 10 filmer of all time och top 10 populära. 
+det finns också en till search forum som man kan söka på filmer så får man fram alla filmer med det du sökt på i namnet så om du ssöker spiderman får du page 1 spidermanfilmer som bör vara 20
