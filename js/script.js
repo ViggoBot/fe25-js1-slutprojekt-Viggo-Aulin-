@@ -4,6 +4,7 @@ let top10OatResults = null;
 let top10NowResults = null;
 let movieresponse = null;
 
+const POSTER_BASE_PATH = "https://media.themoviedb.org/t/p/w440_and_h660_face";
 
 const appendMovieData = (movieData) => {
   // Hämtar ut gallery och tömmer den
@@ -17,14 +18,13 @@ const appendMovieData = (movieData) => {
 
     // Image
     const img = document.createElement("img");
-    img.src =
-      "https://media.themoviedb.org/t/p/w440_and_h660_face" + movie.poster_path;
+    img.src = POSTER_BASE_PATH + movie.poster_path;
     img.classList.add("poster");
     // title
     const title = document.createElement("h2");
     title.textContent = movie.title;
     title.classList.add("title");
-    
+
     // date
     const release = document.createElement("h6");
     release.textContent = movie.release_date;
@@ -43,14 +43,12 @@ const appendMovieData = (movieData) => {
 const fetchTop10Oat = async () => {
   // döljer actor sidan
   const pages = document.querySelectorAll(".page");
-  pages.forEach(page => {
+  pages.forEach((page) => {
     page.classList.add("hidden");
   });
   // den visar top 10 sidan
   const top10Page = document.getElementById("top10Page");
   top10Page.classList.remove("hidden");
-
-
 
   // fetchar datan från apiet om det inte redan har gjort det
   if (!top10OatResults) {
@@ -85,11 +83,11 @@ const fetchTop10Oat = async () => {
 
 const fetchTop10Now = async () => {
   const pages = document.querySelectorAll(".page");
-  pages.forEach(page => {
+  pages.forEach((page) => {
     page.classList.add("hidden");
   });
-     
- const top10Page = document.getElementById("top10Page");
+
+  const top10Page = document.getElementById("top10Page");
   top10Page.classList.remove("hidden");
 
   // fetchar datan från apiet om det inte redan har gjort det
@@ -127,11 +125,11 @@ async function actorSearch(event) {
   // hindrar formuläret att skickas och laddar om sidan
   event.preventDefault();
   const pages = document.querySelectorAll(".page");
-  pages.forEach(page => {
+  pages.forEach((page) => {
     page.classList.add("hidden");
   });
 
-   const searchActorPage = document.getElementById("searchActorPage");
+  const searchActorPage = document.getElementById("searchActorPage");
   searchActorPage.classList.remove("hidden");
 
   // tömmer actor container
@@ -191,8 +189,7 @@ async function actorSearch(event) {
     movieCard.classList.add("actorMoviecard");
     // poster på filmerna
     const ActorMovieimg = document.createElement("img");
-    ActorMovieimg.src =
-      "https://media.themoviedb.org/t/p/w440_and_h660_face" + movie.poster_path;
+    ActorMovieimg.src = POSTER_BASE_PATH + movie.poster_path;
     ActorMovieimg.classList.add("actorMovieposter");
 
     // movie titel
@@ -228,15 +225,12 @@ async function movieSearch(event) {
   event.preventDefault();
 
   const pages = document.querySelectorAll(".page");
-  pages.forEach(page => {
+  pages.forEach((page) => {
     page.classList.add("hidden");
   });
 
   const searchMoviePage = document.getElementById("searchMoviePage");
   searchMoviePage.classList.remove("hidden");
-
- 
-
 
   const searchMovieContainer = document.getElementById("searchMovieContainer");
   searchMovieContainer.innerHTML = "";
@@ -256,34 +250,33 @@ async function movieSearch(event) {
     return;
   }
 
-  console.log('movieResponse',movieResponse);
+  console.log("movieResponse", movieResponse);
   const movies = movieResponse?.data?.results;
 
   movies.forEach((movie) => {
-        const movieDiv = document.createElement("div");
+    const movieDiv = document.createElement("div");
     movieDiv.classList.add("movieDiv");
 
     const searchMovieImg = document.createElement("img");
-    searchMovieImg.src =
-      "https://media.themoviedb.org/t/p/w440_and_h660_face" + movie.poster_path;
+    searchMovieImg.src = POSTER_BASE_PATH + movie.poster_path;
     searchMovieImg.classList.add("searchMovieposter");
 
     // title
     const searchMovieTitle = document.createElement("h2");
     searchMovieTitle.textContent = movie.title;
     searchMovieTitle.classList.add("title");
-    
+
     // date
     const searchMovieRelease = document.createElement("h6");
     searchMovieRelease.textContent = movie.release_date;
     searchMovieRelease.classList.add("date");
-        
+
     // name
     const searchMovieName = document.createElement("h2");
     searchMovieName.textContent = movie.name;
     searchMovieName.classList.add("searchMovieName");
 
-     // overview
+    // overview
     const searchMovieOverview = document.createElement("p");
     searchMovieOverview.textContent = movie.overview;
     searchMovieOverview.classList.add("searchMovieoverview");
@@ -291,15 +284,11 @@ async function movieSearch(event) {
     // lägger till allt på sidan
     searchMovieContainer.appendChild(searchMovieImg);
     searchMovieContainer.appendChild(searchMovieTitle);
-       searchMovieContainer.appendChild(searchMovieName);
-       searchMovieContainer.appendChild(searchMovieOverview)
+    searchMovieContainer.appendChild(searchMovieName);
+    searchMovieContainer.appendChild(searchMovieOverview);
     searchMovieContainer.appendChild(searchMovieRelease);
-
-
-
   });
-  
-};
+}
 
 document.addEventListener("DOMContentLoaded", async function () {
   // När sidan är laddad körs denna koden
@@ -315,7 +304,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   const actorform = document.querySelector(".actorform");
   actorform.addEventListener("submit", actorSearch);
 
-const movieform = document.querySelector(".movieform");
-movieform.addEventListener("submit", movieSearch);
-
+  const movieform = document.querySelector(".movieform");
+  movieform.addEventListener("submit", movieSearch);
 });
